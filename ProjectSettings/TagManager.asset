@@ -47,5 +47,8 @@ TagManager:
   - name: Obstacles
     uniqueID: 1476757927
     locked: 0
+  - name: Ball
+    uniqueID: 515886561
+    locked: 0
   m_RenderingLayers:
   - Default
