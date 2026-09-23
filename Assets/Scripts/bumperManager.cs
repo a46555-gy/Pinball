@@ -10,10 +10,13 @@ public class bumperManager : MonoBehaviour
     Vector3 ogSize;
     
     private SpriteRenderer spriteRenderer;
+    
+    AudioSource audioSource;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        audioSource = GetComponent<AudioSource>();
         ogSize = transform.localScale;
     }
     
@@ -21,6 +24,10 @@ public class bumperManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
             if (newSprite != null)
             {
                 spriteRenderer.sprite = newSprite;
