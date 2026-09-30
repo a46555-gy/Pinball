@@ -236,7 +236,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 8300000, guid: 8fe2220604471c54e910cda948545f8d, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.58
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -332,3 +332,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bb47c6bf7e7dd047a2e21b22dc05b30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::starManager
+  destroyThreshold: -8
