@@ -1,17 +1,18 @@
-using System;
 using UnityEngine;
 
 public class bumperManager : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    [SerializeField] private Sprite newSprite; 
-    [SerializeField] private Sprite ogSprite;
-    
-    Vector3 ogSize;
-    
+    [SerializeField] private float popScale = 1.25f;   
+    [SerializeField] private float growSpeed = 20f;   
+    [SerializeField] private float shrinkSpeed = 8f;  
+    [SerializeField] private float holdTime = 0.1f;    
+
+    private Vector3 ogSize;
+    private float holdTimer;
+    private bool isPopped;
+
     private SpriteRenderer spriteRenderer;
-    
-    AudioSource audioSource;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -19,33 +20,39 @@ public class bumperManager : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         ogSize = transform.localScale;
     }
-    
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (!collision.gameObject.CompareTag("Player")) return;
+
+        if (audioSource != null && !audioSource.isPlaying)
         {
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
-            if (newSprite != null)
-            {
-                spriteRenderer.sprite = newSprite;
-                transform.localScale = new Vector3(.4f, .4f, 1f);
-            }
+            audioSource.Play();
         }
+
+        isPopped = true;
+        holdTimer = holdTime;
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    void Update()
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (isPopped)
         {
-            if (ogSprite != null)
+            holdTimer -= Time.deltaTime;
+            if (holdTimer <= 0f)
             {
-                spriteRenderer.sprite = ogSprite;
-                transform.localScale = ogSize;
+                isPopped = false;
             }
+        }
+
+        Vector3 targetSize = isPopped ? ogSize * popScale : ogSize;
+        float speed = isPopped ? growSpeed : shrinkSpeed;
+
+        transform.localScale = Vector3.Lerp(transform.localScale, targetSize, Mathf.Min(1f, speed * Time.deltaTime));
+
+        if (!isPopped && (transform.localScale - ogSize).sqrMagnitude < 0.00001f)
+        {
+            transform.localScale = ogSize;
         }
     }
 }
-

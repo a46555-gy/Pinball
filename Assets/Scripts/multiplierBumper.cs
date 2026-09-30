@@ -40,6 +40,8 @@ public class multiplierBumper : MonoBehaviour
                     spriteRenderer.sprite = newSprite;
                 }
             }
+            
+            
         }
     }
 

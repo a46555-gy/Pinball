@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - blueBumper
+  - triangleBump
+  - yellowBumper
+  - greenBumper
+  - multiplier1.2
+  - multiplier1.5
+  - greenButtons
+  - Wall
+  - star
   layers:
   - Default
   - TransparentFX
@@ -49,6 +58,12 @@ TagManager:
     locked: 0
   - name: Ball
     uniqueID: 515886561
+    locked: 0
+  - name: ScoreScreen
+    uniqueID: 8047687
+    locked: 0
+  - name: Text
+    uniqueID: 1450010549
     locked: 0
   m_RenderingLayers:
   - Default
